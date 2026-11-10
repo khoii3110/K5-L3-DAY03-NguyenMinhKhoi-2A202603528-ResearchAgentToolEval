@@ -74,25 +74,12 @@ Nguồn: run v0 và `analysis/base_runs.csv`; không suy đoán arguments sai c�
 | `group_switch_search_to_timeline` | Đổi từ tìm kiếm sang xem bài đăng tài khoản chính chủ (multi-turn). | `timeline` | Chưa đo |
 
 ## B4. Live Chat
-Chưa có transcript live trong repo; transcript mẫu không được tính là bằng chứng.
+
 
 ## B5. Bonus và tests
-Các tool bonus `send`, `policy`, `papers`, `paper_text` đều có implementation và đăng ký trong repo; hiện chưa có transcript/run riêng chứng minh đã chạy live. `app.py` có trong repo nhưng chưa có URL deploy.
 
-`tests/test_deduplicate_sources.py` kiểm tra chuẩn hóa/URL trùng, URL lỗi, bảo toàn dữ liệu và dispatch/format. Chưa có output pytest lưu, nên chưa xác nhận số test pass hay bug phát hiện được.
-
-| Bonus | Bằng chứng | Guardrail |
-|---|---|---|
-| Telegram | `tools/send/`, `artifacts/tools.yaml` | Chỉ gửi sau xác nhận. |
-| arXiv/policy | `tools/papers/`, `tools/paper_text/`, `tools/policy/` | Kiểm tra nguồn và trích dẫn; dùng policy cho câu hỏi nội bộ. |
-| UI | `app.py` | Chưa có URL public. |
-| Unit tests | `tests/test_deduplicate_sources.py` | Cần lưu output chạy pytest. |
 
 ## B6. Reflection
-- Prompt nên yêu cầu hỏi lại khi thiếu dữ kiện, giới hạn phạm vi và xác nhận trước hành động có side effect.
-- `tools.yaml` nên nói rõ cách chọn tool và quy ước arguments.
-- Boundary gửi/publish và câu hỏi ngoài phạm vi cần review cẩn thận, không chỉ dựa vào điểm tự động.
-- Tiếp theo: hoàn thiện prompt, chạy v1–v3 và group eval, bổ sung 7 eval case, lưu transcript và kết quả pytest.
 
 ## B7. Local Model Challenge
-Chưa có bằng chứng chạy Ollama/local model; chưa thể đánh giá độ chính xác hoặc các kiểu lỗi.
+
