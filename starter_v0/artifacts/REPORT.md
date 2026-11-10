@@ -1,7 +1,7 @@
 # Day 03 Lab v2 Report — Research Agent
 
 ## Team
-- Team / Members: chưa có thông tin trong repo.
+- Team / Members: Nguyễn Minh Khôi (2A202603528), Võ Công Minh, Nguyễn Đắc Tuấn Nghĩa (2A202603442), Nguyễn Ngọc Hiếu (2A202603502).
 - Provider/model baseline: OpenRouter / `openai/gpt-4o-mini`.
 
 # PHẦN A — Giới thiệu agent
@@ -58,13 +58,20 @@ Hiện có run baseline v0; chưa có run v1–v3 hoặc version log đã điề
 Nguồn: run v0 và `analysis/base_runs.csv`; không suy đoán arguments sai của R13 khi log tóm tắt không ghi rõ.
 
 ## B3. Team Eval
-`data/eval_group.json` có 3 case, chưa đủ 10; chưa có group run.
+`data/eval_group.json` có đủ 10 case (5 single-turn, 5 multi-turn) do nhóm tự xây dựng để kiểm thử các tình huống chuyên biệt.
 
 | Case | Kiểm tra | Kỳ vọng | Kết quả |
 |---|---|---|---|
-| `group_dedup_single` | Deduplicate danh sách đã cho. | `deduplicate_sources` | Chưa đo |
-| `group_dedup_missing_items` | Hỏi khi thiếu danh sách. | `clarify` | Chưa đo |
-| `group_dedup_multi` | Dùng danh sách ở lượt trước. | `deduplicate_sources` | Chưa đo |
+| `group_dedup_single` | Deduplicate danh sách đã cho (single-turn). | `deduplicate_sources` | Chưa đo |
+| `group_dedup_missing_items` | Hỏi khi thiếu danh sách nguồn (single-turn). | `clarify` | Chưa đo |
+| `group_arxiv_paper_search` | Tìm bài báo khoa học trên arXiv (single-turn). | `papers` | Chưa đo |
+| `group_company_policy_search` | Tra cứu chính sách công ty (single-turn). | `policy` | Chưa đo |
+| `group_out_of_scope_math` | Từ chối câu hỏi giải toán ngoài phạm vi (single-turn). | Không gọi tool | Chưa đo |
+| `group_dedup_multi` | Dùng danh sách ở lượt trước để bỏ trùng (multi-turn). | `deduplicate_sources` | Chưa đo |
+| `group_clarify_then_send` | Xác nhận ở lượt sau rồi mới gửi Telegram (multi-turn). | `send` (`confirmed=true`) | Chưa đo |
+| `group_missing_url_then_fetch` | Cung cấp URL ở lượt sau rồi mới đọc (multi-turn). | `fetch` | Chưa đo |
+| `group_correction_search_timeframe` | Sửa khoảng thời gian tìm kiếm từ hôm nay sang tháng (multi-turn). | `lookup` (`timeframe=month`) | Chưa đo |
+| `group_switch_search_to_timeline` | Đổi từ tìm kiếm sang xem bài đăng tài khoản chính chủ (multi-turn). | `timeline` | Chưa đo |
 
 ## B4. Live Chat
 Chưa có transcript live trong repo; transcript mẫu không được tính là bằng chứng.

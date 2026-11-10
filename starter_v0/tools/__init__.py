@@ -5,6 +5,13 @@ from typing import Any
 
 import yaml
 
+ROOT = Path(__file__).resolve().parents[1]
+try:
+    from env_loader import load_lab_env
+    load_lab_env(ROOT)
+except ImportError:
+    pass
+
 # Folder names are intentionally vague to match the tool names students see.
 # The imported function names are the underlying implementations (unchanged).
 from .clarify.tool import ask_user

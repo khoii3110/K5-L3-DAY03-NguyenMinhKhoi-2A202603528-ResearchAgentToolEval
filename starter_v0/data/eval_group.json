@@ -1,35 +1,238 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp: 5 single-turn + 5 multi-turn. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Kèm metadata.what_it_tests.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
   "cases": [
     {
       "id": "group_dedup_single",
       "phase": "B",
       "query": "Chỉ loại nguồn trùng URL trong danh sách này, chưa cần format hay tìm kiếm thêm: [{\"title\":\"A\",\"url\":\"https://example.com/a?utm_source=chat\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"}]",
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [{"name": "deduplicate_sources", "args": {}}]},
-      "metadata": {"what_it_tests": "Route an explicit duplicate-source request to the new tool. Argument contents and output correctness are covered by offline unit tests."}
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate_sources",
+            "args": {}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Route an explicit duplicate-source request to the new tool. Argument contents and output correctness are covered by offline unit tests."
+      }
     },
     {
       "id": "group_dedup_missing_items",
       "phase": "B",
       "query": "Bỏ các nguồn trùng giúp mình. Mình chưa gửi danh sách nguồn; hãy hỏi mình để lấy danh sách trước.",
       "failure_type": "missing_info",
-      "expect": {"tool_calls": [{"name": "clarify", "args": {}}]},
-      "metadata": {"what_it_tests": "Ask for missing sources instead of inventing items or passing an empty list."}
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Ask for missing sources instead of inventing items or passing an empty list."
+      }
+    },
+    {
+      "id": "group_arxiv_paper_search",
+      "phase": "B",
+      "query": "Tìm các bài báo nghiên cứu khoa học mới nhất trên arXiv về chủ đề \"LLM Agent Tool Calling\"",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "LLM Agent Tool Calling"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Route academic paper search requests to the arXiv papers tool instead of generic web search."
+      }
+    },
+    {
+      "id": "group_company_policy_search",
+      "phase": "B",
+      "query": "Chính sách của công ty quy định thế nào về việc trích dẫn nguồn khi công bố tài liệu ra bên ngoài?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "query": "trích dẫn nguồn"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Route company internal policy questions to the policy tool instead of internet search."
+      }
+    },
+    {
+      "id": "group_out_of_scope_math",
+      "phase": "B",
+      "query": "Giải phương trình bậc hai 3x^2 - 5x + 2 = 0 và tìm nghiệm x giúp mình.",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true
+      },
+      "metadata": {
+        "what_it_tests": "Do not invoke research tools for purely out-of-scope math requests."
+      }
     },
     {
       "id": "group_dedup_multi",
       "phase": "B",
       "turns": [
-        {"role": "user", "content": "Đây là các nguồn: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a?utm_source=chat\"}]."},
-        {"role": "user", "content": "Chỉ loại nguồn trùng trong danh sách mình vừa gửi. Chưa cần format và không tìm nguồn mới."}
+        {
+          "role": "user",
+          "content": "Đây là các nguồn: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a?utm_source=chat\"}]."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ loại nguồn trùng trong danh sách mình vừa gửi. Chưa cần format và không tìm nguồn mới."
+        }
       ],
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [{"name": "deduplicate_sources", "args": {}}]},
-      "metadata": {"what_it_tests": "Use sources from an earlier user turn and route the latest deduplication request correctly; no additional research or formatting."}
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate_sources",
+            "args": {}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Use sources from an earlier user turn and route the latest deduplication request correctly; no additional research or formatting."
+      }
+    },
+    {
+      "id": "group_clarify_then_send",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Gửi bản tóm tắt thị trường AI này lên kênh Telegram giúp mình: 'Thị trường AI tuần qua tăng trưởng mạnh'."
+        },
+        {
+          "role": "user",
+          "content": "Mình xác nhận nội dung chính xác rồi, hãy gửi lên Telegram ngay nhé."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Execute Telegram send only after the user explicitly confirms in the subsequent turn."
+      }
+    },
+    {
+      "id": "group_missing_url_then_fetch",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài viết mới nhất trên blog OpenAI giúp mình với."
+        },
+        {
+          "role": "user",
+          "content": "Đây là link bài viết: https://openai.com/index/gpt-4o"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://openai.com/index/gpt-4o"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Fetch the specific URL once the user supplies it in the follow-up turn after a vague initial request."
+      }
+    },
+    {
+      "id": "group_correction_search_timeframe",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về mô hình Gemini hôm nay."
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, tìm tin trong cả tháng này cơ chứ không phải hôm nay."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Gemini",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Update timeframe argument to month based on user explicit correction in turn 2."
+      }
+    },
+    {
+      "id": "group_switch_search_to_timeline",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Mọi người đang nói gì về Elon Musk trên Twitter?"
+        },
+        {
+          "role": "user",
+          "content": "Không, mình muốn xem trực tiếp các bài đăng do chính tài khoản @elonmusk đăng gần đây cơ."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Switch from social_search to timeline when user clarifies they want the person's own tweets."
+      }
     }
   ]
 }
