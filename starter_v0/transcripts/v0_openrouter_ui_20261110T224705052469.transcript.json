@@ -1,0 +1,261 @@
+{
+  "transcript_id": "v0_openrouter_ui_20261110T224705052469",
+  "version": "v0",
+  "artifact_version": "v0+peb1c8179815b+t9ab76b7301b0",
+  "prompt_hash": "eb1c8179815bd79d34de7d326420bb99b3072e6e8ae96464c02d4411f905fc68",
+  "tools_hash": "9ab76b7301b0aeab6a0c32dd2a448661ae22bfc6c70bea1b3e91001e4489fafd",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "source": "streamlit",
+  "system_prompt": "E:\\VINUNI_AITHUCCHIEN\\PROJECTS\\K5-L3-DAY03-NguyenMinhKhoi-2A202603528-ResearchAgentToolEval\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "E:\\VINUNI_AITHUCCHIEN\\PROJECTS\\K5-L3-DAY03-NguyenMinhKhoi-2A202603528-ResearchAgentToolEval\\starter_v0\\artifacts\\tools.yaml",
+  "created_at": "2026-11-10T22:47:05",
+  "updated_at": "2026-11-10T22:47:21",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T22:47:05",
+      "user": "Tìm 2 bài báo khoa học mới nhất về Retrieval-Augmented Generation trên arXiv và tóm tắt ngắn gọn.",
+      "status": "answered",
+      "assistant_text": "Here are the two latest papers related to Retrieval-Augmented Generation:\n\n## Recent Papers on Retrieval-Augmented Generation\n\n1. **[OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints](http://arxiv.org/abs/2611.12727v1)**  \n   This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to significant engagement improvements.\n\n2. **[Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes](http://arxiv.org/abs/2603.09541v2)**  \n   The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "Retrieval-Augmented Generation",
+                "max_results": 2,
+                "sort_by": "lastUpdatedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "Retrieval-Augmented Generation",
+                "max_results": 2,
+                "sort_by": "lastUpdatedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "Retrieval-Augmented Generation",
+                "api_query": "all:Retrieval-Augmented AND all:Generation",
+                "total_results": 8426,
+                "items": [
+                  {
+                    "arxiv_id": "2611.12727v1",
+                    "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+                    "summary": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo that is reused across heterogeneous product surfaces. This creates substantial challenges: over 90\\% of listing photos have no engagement labels, leading to a severe cold-start regime; guest preferences vary across surfaces and search intents, and visually captivating photos may be semantically misaligned with the underlying listing. At Airbnb scale, this corresponds to hundreds of millions of photos and hundreds of thousands of new uploads per day. We propose \\emph{OptiCover}, a scalable framework for cold-start visual optimization under semantic constraints and multi-surface engagement signals. The framework combines (i) a photo candidate generator that identifies candidate photos through various proxies, (ii) lightweight vision heads applied to frozen CLIP embeddings for large-scale semantic scoring, (iii) a cross-modal grounding validator based on a vision-language model (VLM) that enforces semantic representativeness, and (iv) an Exploration Logging Module (ELM) that orchestrates the collection of randomized engagement data across heterogeneous product surfaces and contextual search intents. We evaluate OptiCover through extensive offline studies and multiple online experiments across HomePage, and Search surfaces. OptiCover is now deployed in production and performs tens of millions of photo swaps daily. Online results show a 1.5\\% engagement lift on the HomePage and a 0.35\\% increase in bookers on Search, generating millions of dollars in incremental revenue. Our findings suggest that action-space shaping and semantic constraints are primary drivers of performance.",
+                    "authors": [
+                      "Guillaume Guy",
+                      "Mihajlo Grbovic",
+                      "Joe Mills",
+                      "Selen Uguroglu",
+                      "Liwei He",
+                      "Pratiksha Kadam",
+                      "Nalini Kartha",
+                      "Qian Aria Li"
+                    ],
+                    "published": "2026-11-09T17:12:09Z",
+                    "updated": "2026-11-09T17:12:09Z",
+                    "url": "http://arxiv.org/abs/2611.12727v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.12727v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CV",
+                    "categories": [
+                      "cs.CV",
+                      "cs.LG"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2603.09541v2",
+                    "title": "Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes",
+                    "summary": "Embodied Question Answering (EQA) couples active visual perception, vision-language reasoning, and sequential decision making, and has traditionally been evaluated in temporally stable environments where visual evidence can be accumulated reliably. In realistic multimedia settings such as dynamic human-populated scenes, however, moving people and transient occlusions introduce human-induced perceptual variations: task-relevant multimodal cues become transient, viewpoint-dependent, and incompletely captured in individual views. Conventional store-then-retrieve strategies generate redundant visual evidence and incur high inference cost, making them ill-suited to such variations. This exposes two core problems for embodied agents: resolving viewpoint-dependent ambiguity, and maintaining compact evidence for efficient inference. To address these challenges, we present DIVRR (Dynamic-Informed View Refinement with Relevance-guided Rotation and adaptive memory selection), a training-free active evidence-acquisition framework for EQA. DIVRR combines question-conditioned room guidance with relevance-triggered view augmentation to guide exploration and additional observation. Selective memory admission uses the same relevance signal as view augmentation to retain high-scoring evidence, reducing stored entries while keeping the retrieved visual context compact. To evaluate EQA under human-induced perceptual variations, we introduce DynHuman-EQA, a dynamic human-populated EQA dataset constructed in Habitat, comprising dynamic and static subsets under shared scene layouts. Experiments on DynHuman-EQA and HM-EQA show that DIVRR outperforms existing baselines in both accuracy and memory efficiency. The gains are most pronounced in dynamic human-populated scenes.",
+                    "authors": [
+                      "Xin Lu",
+                      "Rui Li",
+                      "Xun Huang",
+                      "Weixin Li",
+                      "Jiayuan Li",
+                      "Chuanqing Zhuang",
+                      "Zhengda Lu",
+                      "Jun Xiao"
+                    ],
+                    "published": "2026-03-10T11:51:54Z",
+                    "updated": "2026-11-09T15:47:48Z",
+                    "url": "http://arxiv.org/abs/2603.09541v2",
+                    "pdf_url": "https://arxiv.org/pdf/2603.09541v2",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CV",
+                    "categories": [
+                      "cs.CV",
+                      "cs.MM"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "format",
+              "args": {
+                "items": [
+                  {
+                    "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+                    "url": "http://arxiv.org/abs/2611.12727v1",
+                    "summary": "This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to significant engagement improvements."
+                  },
+                  {
+                    "title": "Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes",
+                    "url": "http://arxiv.org/abs/2603.09541v2",
+                    "summary": "The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency."
+                  }
+                ],
+                "template": "sections",
+                "headline": "Recent Papers on Retrieval-Augmented Generation"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "format",
+              "args": {
+                "items": [
+                  {
+                    "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+                    "url": "http://arxiv.org/abs/2611.12727v1",
+                    "summary": "This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to significant engagement improvements."
+                  },
+                  {
+                    "title": "Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes",
+                    "url": "http://arxiv.org/abs/2603.09541v2",
+                    "summary": "The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency."
+                  }
+                ],
+                "template": "sections",
+                "headline": "Recent Papers on Retrieval-Augmented Generation"
+              },
+              "result": {
+                "tool": "render_digest",
+                "template": "sections",
+                "markdown": "# Recent Papers on Retrieval-Augmented Generation\n\n## Tổng hợp\n- This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to s... - [arxiv.org](http://arxiv.org/abs/2611.12727v1)\n- The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency. - [arxiv.org](http://arxiv.org/abs/2603.09541v2)\n",
+                "item_count": 2
+              }
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "assistant_text": "Here are the two latest papers related to Retrieval-Augmented Generation:\n\n## Recent Papers on Retrieval-Augmented Generation\n\n1. **[OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints](http://arxiv.org/abs/2611.12727v1)**  \n   This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to significant engagement improvements.\n\n2. **[Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes](http://arxiv.org/abs/2603.09541v2)**  \n   The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "Retrieval-Augmented Generation",
+            "max_results": 2,
+            "sort_by": "lastUpdatedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "Retrieval-Augmented Generation",
+            "api_query": "all:Retrieval-Augmented AND all:Generation",
+            "total_results": 8426,
+            "items": [
+              {
+                "arxiv_id": "2611.12727v1",
+                "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+                "summary": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo that is reused across heterogeneous product surfaces. This creates substantial challenges: over 90\\% of listing photos have no engagement labels, leading to a severe cold-start regime; guest preferences vary across surfaces and search intents, and visually captivating photos may be semantically misaligned with the underlying listing. At Airbnb scale, this corresponds to hundreds of millions of photos and hundreds of thousands of new uploads per day. We propose \\emph{OptiCover}, a scalable framework for cold-start visual optimization under semantic constraints and multi-surface engagement signals. The framework combines (i) a photo candidate generator that identifies candidate photos through various proxies, (ii) lightweight vision heads applied to frozen CLIP embeddings for large-scale semantic scoring, (iii) a cross-modal grounding validator based on a vision-language model (VLM) that enforces semantic representativeness, and (iv) an Exploration Logging Module (ELM) that orchestrates the collection of randomized engagement data across heterogeneous product surfaces and contextual search intents. We evaluate OptiCover through extensive offline studies and multiple online experiments across HomePage, and Search surfaces. OptiCover is now deployed in production and performs tens of millions of photo swaps daily. Online results show a 1.5\\% engagement lift on the HomePage and a 0.35\\% increase in bookers on Search, generating millions of dollars in incremental revenue. Our findings suggest that action-space shaping and semantic constraints are primary drivers of performance.",
+                "authors": [
+                  "Guillaume Guy",
+                  "Mihajlo Grbovic",
+                  "Joe Mills",
+                  "Selen Uguroglu",
+                  "Liwei He",
+                  "Pratiksha Kadam",
+                  "Nalini Kartha",
+                  "Qian Aria Li"
+                ],
+                "published": "2026-11-09T17:12:09Z",
+                "updated": "2026-11-09T17:12:09Z",
+                "url": "http://arxiv.org/abs/2611.12727v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12727v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2603.09541v2",
+                "title": "Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes",
+                "summary": "Embodied Question Answering (EQA) couples active visual perception, vision-language reasoning, and sequential decision making, and has traditionally been evaluated in temporally stable environments where visual evidence can be accumulated reliably. In realistic multimedia settings such as dynamic human-populated scenes, however, moving people and transient occlusions introduce human-induced perceptual variations: task-relevant multimodal cues become transient, viewpoint-dependent, and incompletely captured in individual views. Conventional store-then-retrieve strategies generate redundant visual evidence and incur high inference cost, making them ill-suited to such variations. This exposes two core problems for embodied agents: resolving viewpoint-dependent ambiguity, and maintaining compact evidence for efficient inference. To address these challenges, we present DIVRR (Dynamic-Informed View Refinement with Relevance-guided Rotation and adaptive memory selection), a training-free active evidence-acquisition framework for EQA. DIVRR combines question-conditioned room guidance with relevance-triggered view augmentation to guide exploration and additional observation. Selective memory admission uses the same relevance signal as view augmentation to retain high-scoring evidence, reducing stored entries while keeping the retrieved visual context compact. To evaluate EQA under human-induced perceptual variations, we introduce DynHuman-EQA, a dynamic human-populated EQA dataset constructed in Habitat, comprising dynamic and static subsets under shared scene layouts. Experiments on DynHuman-EQA and HM-EQA show that DIVRR outperforms existing baselines in both accuracy and memory efficiency. The gains are most pronounced in dynamic human-populated scenes.",
+                "authors": [
+                  "Xin Lu",
+                  "Rui Li",
+                  "Xun Huang",
+                  "Weixin Li",
+                  "Jiayuan Li",
+                  "Chuanqing Zhuang",
+                  "Zhengda Lu",
+                  "Jun Xiao"
+                ],
+                "published": "2026-03-10T11:51:54Z",
+                "updated": "2026-11-09T15:47:48Z",
+                "url": "http://arxiv.org/abs/2603.09541v2",
+                "pdf_url": "https://arxiv.org/pdf/2603.09541v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.MM"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        },
+        {
+          "tool": "format",
+          "args": {
+            "items": [
+              {
+                "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+                "url": "http://arxiv.org/abs/2611.12727v1",
+                "summary": "This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to significant engagement improvements."
+              },
+              {
+                "title": "Memory-Efficient Active Perception for Embodied Question Answering in Dynamic Human-Populated Scenes",
+                "url": "http://arxiv.org/abs/2603.09541v2",
+                "summary": "The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency."
+              }
+            ],
+            "template": "sections",
+            "headline": "Recent Papers on Retrieval-Augmented Generation"
+          },
+          "result": {
+            "tool": "render_digest",
+            "template": "sections",
+            "markdown": "# Recent Papers on Retrieval-Augmented Generation\n\n## Tổng hợp\n- This paper presents OptiCover, a framework for optimizing cover photo selection in e-commerce, addressing challenges like cold-start regimes and semantic misalignment. It combines photo candidate generation, semantic scoring, and a cross-modal grounding validator, leading to s... - [arxiv.org](http://arxiv.org/abs/2611.12727v1)\n- The paper introduces DIVRR, a framework for Embodied Question Answering (EQA) that enhances active visual perception in dynamic environments. It addresses viewpoint-dependent ambiguity and memory efficiency, outperforming existing methods in accuracy and efficiency. - [arxiv.org](http://arxiv.org/abs/2603.09541v2)\n",
+            "item_count": 2
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T22:47:21"
+    }
+  ]
+}
